@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<main>
+    <div id="mainLeft">
+        <h1>Welcome to Chinese Classics Bookstore</h1>
+        <p>Here, we curate timeless works centered on the Four Great Classical Novels, inviting you to wander through pages shaped by centuries of history and imagination.</p>
+        <p>Explore the editions and companion volumes available by selecting a classic on the right.</p>
+    </div>
+    <div id='mainRight'>
+        <h2>Shop by Category</h2>
+    <div id="categorySelections">
+      {% for category in categories %}
+        <div class="categoryCard">
+          <a href="{{ url_for('category', categoryId=category.id) }}">
+            <img src="{{ url_for('static', filename='images/categories/' ~ category.image) }}"
+                 alt="{{ category.name }}">
+            <p>{{ category.name }}</p>
+          </a>
+        </div>
+            {%endfor%}
+
+        </div>
+    </div>
+</main>
+{% endblock %}

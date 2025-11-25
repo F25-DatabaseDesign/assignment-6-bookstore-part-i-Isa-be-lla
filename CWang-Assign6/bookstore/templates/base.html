@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chinese Classics Bookstore</title>
+    <link rel="stylesheet" 
+      href="{{ url_for('static', filename='css/main.css') }}" />
+    <link rel="shortcut icon" 
+      href="data:image/x-icon;," type="image/x-icon">
+  </head>
+  <body>
+    <header>
+      <div id="leftHeader">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/misc/ccs-logo.png') }}"
+               alt="Chinese Classics Bookstore logo">
+        </a>
+      </div>
+
+      <div id="midHeader">
+        <h3>Chinese Classics Bookstore</h3>
+        <form id="searchBoxForm" action="{{ url_for('search') }}" method="get">
+          <input id="searchBox" type="text" placeholder="Search title or author" name="q" value="{{ request.args.get('q','') }}">
+          <button type="submit" id="searchButton">Search</button>
+        </form>
+
+        <div class="dropdown">
+          <p class="dropdownSelect">Categories</p>
+          <div class="dropdownContent">
+            {% for category in categories %}
+              <p>
+                <a href="{{ url_for('category', categoryId=category.id) }}">
+                  {{ category.name }}
+                </a>
+              </p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div id="rightHeader">
+        <div id="cartIcon"><a href="#">
+                 <img src="{{ url_for('static', filename='images/misc/cart-icon.png') }}" alt="cart"></a>
+        </div>
+        <div id="cartCount">0 items</div>
+        <div class="loginButton"><a href="#">login</a></div>
+      </div>
+  </header>
+    <main>{% block container %} {% endblock %}</main>
+  <footer>
+    <div id="footerLeft">
+      <!-- Insert the name of your site here-->
+      <p>&copy; </p>
+        <a href="#">Contact Us</a>
+        <a href="#">Directions</a>
+    </div>
+    <div id="footerRight">
+        <a href="#"><img src ="static/images/misc/ins-icon.png" alt="Instagram"></a>
+        <a href="#"><img src ="static/images/misc/facebook-icon.png" alt="Facebook"></a>
+        <a href="#"><img src ="static/images/misc/twitter-icon.png" alt ="Twitter"></a>
+    </div>
+  </footer>
+  </body>
+</html>
