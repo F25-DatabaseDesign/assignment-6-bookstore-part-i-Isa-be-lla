@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<main>
+  <section id="catLeft">
+    {% for cat in categories %}
+      {% if selectedCategory == cat.id %}
+        <p class="selectedCategory">{{ cat.name }}</p>
+      {% else %}
+        <p class="notSelectedCategory">
+          <a href="{{ url_for('category', categoryId=cat.id) }}">{{ cat.name }}</a>
+        </p>
+      {% endif %}
+    {% endfor %}
+  </section>
+
+  <section id="catRight">
+    {% if books %}
+      {% for book in books %}
+        <div class="book">
+          <div class="bookImage">
+            <img src="{{ url_for('static', filename='images/books/' ~ book.image) }}" alt="{{ book.title }}">
+          </div>
+          <div class="bookDetailBox">
+            <p class="bookTitle">{{ book.title }}</p>
+            <p class="bookDetail">by {{ book.author }}</p>
+            <p class="bookDetail">ISBN: {{ book.isbn }}</p>
+            <p class="bookPrice">${{ '%.2f'|format(book.price) }}</p>
+
+            <a class="actionButton" href="#">Add to cart</a>
+
+            {% if book.readNow == 1 %}
+              <a class="actionButton readNow" href="#">Read Now</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No books found for this category.</p>
+    {% endif %}
+  </section>
+
+</main>
+{% endblock %}
+
